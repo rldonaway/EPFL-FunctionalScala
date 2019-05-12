@@ -36,14 +36,6 @@ class Tweet(val user: String, val text: String, val retweets: Int) {
   */
 abstract class TweetSet {
 
-  def asSet(tweets: TweetSet): Set[Tweet] = {
-    var res = Set[Tweet]()
-    tweets.foreach(res += _)
-    res
-  }
-
-  def size(set: TweetSet): Int = asSet(set).size
-
   /**
     * This method takes a predicate and returns a subset of all the elements
     * in the original set for which the predicate is true.
@@ -85,18 +77,6 @@ abstract class TweetSet {
   def descendingByRetweet: TweetList = {
     val most = this.mostRetweeted
     val rest = this.remove(most)
-    println(most.retweets + ": " + most.text)
-    println("before:" + size(this) + " after:" + size(rest))
-    if (size(this) == size(rest)) {
-      println("we are stopping because no progress is being made")
-//      println("THIS-------------------------")
-//      this.foreach(println)
-//      println("-------------------------")
-//      println("REST-------------------------")
-//      rest.foreach(println)
-//      println("-------------------------")
-      return null
-    }
     if (rest.isInstanceOf[Empty]) new Cons(most, Nil)
     else new Cons(most, rest.descendingByRetweet)
   }
@@ -127,6 +107,9 @@ abstract class TweetSet {
     * This method takes a function and applies it to every element in the set.
     */
   def foreach(f: Tweet => Unit): Unit
+
+  def addToList(tweetList: TweetList): TweetList
+
 }
 
 class Empty extends TweetSet {
@@ -147,6 +130,8 @@ class Empty extends TweetSet {
   def remove(tweet: Tweet): TweetSet = this
 
   def foreach(f: Tweet => Unit): Unit = ()
+
+  def addToList(tweetList: TweetList): TweetList = tweetList
 }
 
 class NonEmpty(val elem: Tweet, val left: TweetSet, val right: TweetSet) extends TweetSet {
@@ -160,43 +145,20 @@ class NonEmpty(val elem: Tweet, val left: TweetSet, val right: TweetSet) extends
   }
 
   def union(that: TweetSet): TweetSet = {
-    if (that.isInstanceOf[Empty]) this
-    else unionNonEmpty(that.asInstanceOf[NonEmpty])
+    val thatList: TweetList = that.addToList(Nil)
+    addFromList(this, thatList)
   }
 
-  def unionNonEmpty(that: NonEmpty): TweetSet = {
-//    val neResult: NonEmpty = {
-//      if (this.elem < that.elem) new NonEmpty(this.elem, this.left, that.right)
-//      else new NonEmpty(this.elem, that.left, this.right)
-//    }
-//    val tsResult: TweetSet = neResult.incl(that.elem)
-    // go through the elements on that's left and the right?
-//    val leftUnion = this.left.union(that.left).incl(that.elem)
-//    val rightUnion = this.right.union(that.right)
-//    new NonEmpty(this.elem, leftUnion, rightUnion)
-    if (this.elem.text < that.elem.text) {
-      addAll(that.right, addAll(that.left, new NonEmpty(this.elem, this.left, that.right))).incl(that.elem)
-    } else {
-      new NonEmpty(this.elem, that.left, this.right).union(this.left).union(that.right).incl(that.elem)
-    }
-  }
-
-  def addAll(ts: TweetSet, acc: TweetSet): TweetSet = {
-    if (ts.isInstanceOf[Empty]) acc
-    else {
-      val tsne = ts.asInstanceOf[NonEmpty]
-      println("adding: " + tsne.elem.text)
-      addAll(tsne.right, addAll(tsne.left, acc.incl(tsne.elem)))
-    }
+  def addFromList(set: TweetSet, list: TweetList): TweetSet = {
+    if (list == Nil) set
+    else addFromList(set.incl(list.head), list.tail)
   }
 
   def mostRetweeted: Tweet = {
     val leftMost = if (left.isInstanceOf[Empty]) elem else left.mostRetweeted
     val rightMost = if (right.isInstanceOf[Empty]) elem else right.mostRetweeted
-    var maxE = elem
-    if (maxE.retweets < leftMost.retweets) maxE = leftMost
-    if (maxE.retweets < rightMost.retweets) maxE = rightMost
-    maxE
+    val leftMax = if (elem.retweets > leftMost.retweets) elem else leftMost
+    if (leftMax.retweets > rightMost.retweets) leftMax else rightMost
   }
 
   /**
@@ -215,20 +177,15 @@ class NonEmpty(val elem: Tweet, val left: TweetSet, val right: TweetSet) extends
   }
 
   def remove(tw: Tweet): TweetSet = {
-    println("need to remove --->" + tw.text + "<---")
-    println("compare w/     --->" + elem.text + "<---")
     if (tw.text < elem.text) {
       val result: NonEmpty = new NonEmpty(elem, left.remove(tw), right)
-      println("it's in the left... size was " + size(left) + " and now it's " + size(result.left))
       result
     }
     else if (elem.text < tw.text) {
       val result:NonEmpty = new NonEmpty(elem, left, right.remove(tw))
-      println("it's in the right... size was " + size(right) + " and now it's " + size(result.right))
       result
     }
     else {
-      println("it's the element... we are done")
       left.union(right)
     }
   }
@@ -238,6 +195,13 @@ class NonEmpty(val elem: Tweet, val left: TweetSet, val right: TweetSet) extends
     left.foreach(f)
     right.foreach(f)
   }
+
+  def addToList(tweetList: TweetList): TweetList = {
+    val rightAdded: TweetList = right.addToList(tweetList)
+    val centerAdded: TweetList = new Cons(elem, rightAdded)
+    left.addToList(centerAdded)
+  }
+
 }
 
 trait TweetList {
@@ -282,12 +246,6 @@ object GoogleVsApple {
 }
 
 object Main extends App {
-//  val gobbler: TweetSet = new Empty().incl(new Tweet("gobicket", "hiya", 1))
-//    .incl(new Tweet("gimbler", "quannis", 2))
-//    .incl(new Tweet("clotoklamcliptic", "cocolobuto", 1))
-//    .incl(new Tweet("dobber", "ter", 3))
-//  val deco = gobbler.descendingByRetweet
-//  deco foreach println
   // Print the trending tweets
   GoogleVsApple.trending foreach println
 }
