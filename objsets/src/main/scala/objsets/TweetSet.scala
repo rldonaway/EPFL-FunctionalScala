@@ -185,7 +185,7 @@ class NonEmpty(val elem: Tweet, val left: TweetSet, val right: TweetSet) extends
     if (ts.isInstanceOf[Empty]) acc
     else {
       val tsne = ts.asInstanceOf[NonEmpty]
-      println("adding " + tsne.elem)
+      println("adding: " + tsne.elem.text)
       addAll(tsne.right, addAll(tsne.left, acc.incl(tsne.elem)))
     }
   }
