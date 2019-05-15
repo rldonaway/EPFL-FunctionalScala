@@ -82,14 +82,14 @@ object Huffman {
   def timesAcc(chars: List[Char], list: List[(Char, Int)]): List[(Char, Int)] = {
     if (chars.isEmpty) list
     else if (chars.tail.isEmpty) timesAccAcc(chars.head, list)
-    else timesAccAcc(chars.head, list) :: timesAcc(chars.tail, list)
+    else timesAccAcc(chars.head, list) ::: timesAcc(chars.tail, list)
   }
 
   def timesAccAcc(char: Char, list: List[(Char, Int)]): List[(Char, Int)] = {
     if (list.isEmpty) {
       List((char, 1))
     }
-    else if (list.head == char) {
+    else if (list.head._1 == char) {
       (list.head._1, list.head._2 + 1) :: list.tail
     }
     else {
@@ -113,8 +113,8 @@ object Huffman {
     else if (freqs.tail.isEmpty) list.::(Leaf(freqs.head._1, freqs.head._2))
     else {
       val min: (Char, Int) = findMinFreqAcc((' ', Int.MaxValue), freqs)
-      val newTail: List[(Char, Int)] = freqs.dropWhile(_._1 == min._1)
-      list :: Leaf(min._1, min._2) :: makeOrderedLeafList(newTail)
+      val newTail: List[(Char, Int)] = dropChar(min._1, freqs)
+      (list.::(Leaf(min._1, min._2))) ::: makeOrderedLeafList(newTail)
     }
   }
 
@@ -122,6 +122,11 @@ object Huffman {
     if (list.isEmpty) minSoFar
     else if (minSoFar._2 > list.head._2) findMinFreqAcc(list.head, list.tail)
     else findMinFreqAcc(minSoFar, list.tail)
+  }
+
+  def dropChar(charToDrop: Char, list: List[(Char, Int)]): List[(Char, Int)] = {
+    if (charToDrop == list.head._1) list.tail
+    else list.head :: dropChar(charToDrop, list.tail)
   }
 
   /**
@@ -146,14 +151,14 @@ object Huffman {
     else {
       val tree1: CodeTree = trees.head
       val tree2: CodeTree = trees.tail.head
-      val newNode = new Fork(tree1, tree2, chars(tree1) :: chars(tree2), weight(tree1) + weight(tree2))
+      val newNode = new Fork(tree1, tree2, chars(tree1) ::: chars(tree2), weight(tree1) + weight(tree2))
       addInRightPlace(newNode, List(), trees.tail.tail)
     }
   }
 
   def addInRightPlace(fork: Fork, alreadyChecked: List[CodeTree], leftToCheck: List[CodeTree]): List[CodeTree] = {
     if (leftToCheck.isEmpty) alreadyChecked.::(fork)
-    else if (weight(fork) < weight(leftToCheck.head)) alreadyChecked :: fork :: leftToCheck
+    else if (weight(fork) < weight(leftToCheck.head)) (alreadyChecked.::(fork)) ::: leftToCheck
     else addInRightPlace(fork, alreadyChecked.::(leftToCheck.head), leftToCheck.tail)
   }
 
@@ -207,13 +212,20 @@ object Huffman {
 
   def decodeAcc(tree: CodeTree, bits: List[Bit], list: List[Char]): List[Char] = {
     if (bits.isEmpty) list
-    else tree match {
-      case Leaf(ch, _) => list.::(ch)
+    else {
+      val decodeChar: (Char, List[Bit]) = decodeCharAcc(tree, bits)
+      decodeAcc(tree, decodeChar._2, list :+ decodeChar._1)
+    }
+  }
+
+  def decodeCharAcc(tree: CodeTree, bits: List[Bit]): (Char, List[Bit]) = {
+    tree match {
+      case Leaf(ch, _) => (ch, bits)
       case Fork(l, r, _, _) => {
         if (bits.head < 1) {
-          decodeAcc(l, bits.tail, list)
+          decodeCharAcc(l, bits.tail)
         } else {
-          decodeAcc(r, bits.tail, list)
+          decodeCharAcc(r, bits.tail)
         }
       }
     }
@@ -252,13 +264,20 @@ object Huffman {
 
   def encodeAcc(tree: CodeTree)(text: List[Char], bits: List[Bit]): List[Bit] = {
     if (text.isEmpty) bits
-    else tree match {
-      case Leaf(ch, _) => bits
+    else {
+      val bitsSoFarWithBitsForHead: List[Bit] = encodeCharAcc(tree)(text.head, bits)
+      encodeAcc(tree)(text.tail, bitsSoFarWithBitsForHead)
+    }
+  }
+
+  def encodeCharAcc(tree: CodeTree)(char: Char, bits: List[Bit]): List[Bit] = {
+    tree match {
+      case Leaf(_, _) => bits
       case Fork(l, r, _, _) => {
-        if (chars(l).contains(text.head)) {
-          encodeAcc(l)(text.tail, bits.::(0))
+        if (chars(l).contains(char)) {
+          encodeCharAcc(l)(char, bits :+ 0)
         } else {
-          encodeAcc(r)(text.tail, bits.::(1))
+          encodeCharAcc(r)(char, bits :+ 1)
         }
       }
     }
@@ -318,7 +337,7 @@ object Huffman {
 
   def quickEncodeAcc(table: CodeTable)(text: List[Char], bits: List[Bit]): List[Bit] = {
     if (text.isEmpty) bits
-    else quickEncodeAcc(table)(text.tail, bits :: codeBits(table)(text.head))
+    else quickEncodeAcc(table)(text.tail, bits ::: codeBits(table)(text.head))
   }
 
 }

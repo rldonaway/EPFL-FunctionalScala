@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2750464-6f8c-4cc5-a07a-3b5a9e4a5e5f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/sbt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sbt.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/patmat/Huffman.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/patmat/Huffman.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/scala/patmat/HuffmanSuite.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/scala/patmat/HuffmanSuite.scala" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -16,6 +16,10 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -26,8 +30,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/patmat/Huffman.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1132">
-              <caret line="315" column="4" selection-start-line="315" selection-start-column="4" selection-end-line="315" selection-end-column="4" />
+            <state relative-caret-position="169">
+              <caret line="224" column="8" selection-start-line="224" selection-start-column="8" selection-end-line="224" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/patmat/HuffmanSuite.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1035">
+              <caret line="74" column="37" lean-forward="true" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -40,11 +53,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/test/scala/patmat/HuffmanSuite.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/patmat/Huffman.scala" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="18" />
     <option name="y" value="23" />
     <option name="width" value="1654" />
@@ -97,6 +111,27 @@
               <item name="scala" type="462c0819:PsiDirectoryNode" />
               <item name="patmat" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="progfun1-patmat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="patmat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="progfun1-patmat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="patmat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="progfun1-patmat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="patmat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+              <item name="patmat" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -129,6 +164,32 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="HuffmanSuite.decode and encode a very short text should be identity" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <module name="progfun1-patmat" />
+      <setting name="path" value="patmat.HuffmanSuite" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <setting name="jrePath" value="" />
+      <envs />
+      <setting name="testKind" value="Test name" />
+      <setting name="path" value="patmat.HuffmanSuite" />
+      <setting name="testName" value="decode and encode a very short text should be identity" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="ScalaTest.HuffmanSuite.decode and encode a very short text should be identity" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SbtLocalSettings">
     <option name="availableProjects">
@@ -192,18 +253,50 @@
       <updated>1557712280763</updated>
       <workItem from="1557712282067" duration="11222000" />
       <workItem from="1557833512242" duration="1813000" />
-      <workItem from="1557933437554" duration="10117000" />
+      <workItem from="1557933437554" duration="19512000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="HuffmanSuite_decode_and_encode_a_very_short_text_should_be_identity - 2019.05.15 at 17h 39m 00s.xml">
+      <configuration name="HuffmanSuite.decode and encode a very short text should be identity" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="HuffmanSuite_decode_and_encode_a_very_short_text_should_be_identity - 2019.05.15 at 19h 05m 22s.xml">
+      <configuration name="HuffmanSuite.decode and encode a very short text should be identity" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="HuffmanSuite_decode_and_encode_a_very_short_text_should_be_identity - 2019.05.15 at 19h 12m 03s.xml">
+      <configuration name="HuffmanSuite.decode and encode a very short text should be identity" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="HuffmanSuite_decode_and_encode_a_very_short_text_should_be_identity - 2019.05.15 at 19h 16m 55s.xml">
+      <configuration name="HuffmanSuite.decode and encode a very short text should be identity" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="HuffmanSuite_decode_and_encode_a_very_short_text_should_be_identity - 2019.05.15 at 19h 17m 48s.xml">
+      <configuration name="HuffmanSuite.decode and encode a very short text should be identity" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="HuffmanSuite_decode_and_encode_a_very_short_text_should_be_identity - 2019.05.15 at 19h 18m 42s.xml">
+      <configuration name="HuffmanSuite.decode and encode a very short text should be identity" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="HuffmanSuite_decode_and_encode_a_very_short_text_should_be_identity - 2019.05.15 at 19h 19m 13s.xml">
+      <configuration name="HuffmanSuite.decode and encode a very short text should be identity" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="HuffmanSuite_decode_and_encode_a_very_short_text_should_be_identity - 2019.05.15 at 19h 19m 34s.xml">
+      <configuration name="HuffmanSuite.decode and encode a very short text should be identity" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="HuffmanSuite_decode_and_encode_a_very_short_text_should_be_identity - 2019.05.15 at 19h 22m 17s.xml">
+      <configuration name="HuffmanSuite.decode and encode a very short text should be identity" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="HuffmanSuite_decode_and_encode_a_very_short_text_should_be_identity - 2019.05.15 at 19h 25m 57s.xml">
+      <configuration name="HuffmanSuite.decode and encode a very short text should be identity" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23152000" />
+    <option name="totallyTimeSpent" value="32547000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="18" y="23" width="1654" height="946" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25620347" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25620347" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -211,20 +304,21 @@
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info id="Learn" order="7" />
+      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39929742" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.3290398" />
-      <window_info anchor="bottom" id="sbt-shell-toolwindow" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info active="true" anchor="bottom" id="sbt-shell-toolwindow" order="8" visible="true" weight="0.3290398" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3290398" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
-      <window_info anchor="bottom" id="Version Control" order="13" visible="true" weight="0.3290398" />
+      <window_info anchor="bottom" id="Version Control" order="13" weight="0.3290398" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -241,11 +335,51 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/patmat/Huffman.scala</url>
+          <line>216</line>
+          <properties />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
+    <entry file="jar://$USER_HOME$/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.4/scalatest_2.11-2.2.4-sources.jar!/org/scalatest/FunSuiteLike.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-551">
+          <caret line="165" column="35" selection-start-line="165" selection-start-column="35" selection-end-line="165" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.4/scalatest_2.11-2.2.4-sources.jar!/org/scalatest/Transformer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest_2.11/2.2.4/scalatest_2.11-2.2.4-sources.jar!/org/scalatest/OutcomeOf.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="83" column="4" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/patmat/HuffmanSuite.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1035">
+          <caret line="74" column="37" lean-forward="true" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/patmat/Huffman.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1132">
-          <caret line="315" column="4" selection-start-line="315" selection-start-column="4" selection-end-line="315" selection-end-column="4" />
+        <state relative-caret-position="169">
+          <caret line="224" column="8" selection-start-line="224" selection-start-column="8" selection-end-line="224" selection-end-column="8" />
         </state>
       </provider>
     </entry>

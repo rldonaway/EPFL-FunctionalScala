@@ -15,6 +15,19 @@ class HuffmanSuite extends FunSuite {
 	}
 
 
+  test("dropping a char") {
+    val l1: List[(Char, Int)] = List(('a', 3), ('b', 1), ('c', 2))
+    val l2: List[(Char, Int)] = dropChar('b', l1)
+    assert(l2.head._1 === 'a')
+    assert(l2.tail.head._1 === 'c')
+    assert(l2.tail.tail.isEmpty)
+    val l3: List[(Char, Int)] = dropChar('c', l1)
+    assert(l3.head._1 === 'a')
+    assert(l3.tail.head._1 === 'b')
+    assert(l3.tail.tail.isEmpty)
+  }
+
+
   test("weight of a larger tree") {
     new TestTrees {
       assert(weight(t1) === 5)
@@ -47,7 +60,23 @@ class HuffmanSuite extends FunSuite {
 
   test("decode and encode a very short text should be identity") {
     new TestTrees {
-      assert(decode(t1, encode(t1)("ab".toList)) === "ab".toList)
+      val ab = List('a', 'b')
+      val bits: List[Bit] = encode(t1)(ab)
+      println("bits: " + bits)
+      val chars: List[Char] = decode(t1, bits)
+      println("chars: " + chars)
+      assert(chars === ab)
+    }
+  }
+
+  test("decode and encode a longer text should be identity") {
+    new TestTrees {
+      val dab = List('d', 'a', 'b')
+      val bits: List[Bit] = encode(t2)(dab)
+      println("bits: " + bits)
+      val chars: List[Char] = decode(t2, bits)
+      println("chars: " + chars)
+      assert(chars === dab)
     }
   }
 
