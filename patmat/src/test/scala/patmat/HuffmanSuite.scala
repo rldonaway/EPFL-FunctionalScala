@@ -62,9 +62,7 @@ class HuffmanSuite extends FunSuite {
     new TestTrees {
       val ab = List('a', 'b')
       val bits: List[Bit] = encode(t1)(ab)
-      println("bits: " + bits)
       val chars: List[Char] = decode(t1, bits)
-      println("chars: " + chars)
       assert(chars === ab)
     }
   }
@@ -73,9 +71,30 @@ class HuffmanSuite extends FunSuite {
     new TestTrees {
       val dab = List('d', 'a', 'b')
       val bits: List[Bit] = encode(t2)(dab)
-      println("bits: " + bits)
       val chars: List[Char] = decode(t2, bits)
-      println("chars: " + chars)
+      assert(chars === dab)
+    }
+  }
+
+  test("times should count the number of each character") {
+    val str: List[Char] = "very nice ice".toList
+    val counts: List[(Char, Int)] = times(str)
+    assert(counts === List(('v',1), ('e',3), ('r',1), ('y',1), (' ',2), ('n',1), ('i',2), ('c',2)))
+  }
+
+  test("convert should work") {
+    new TestTrees {
+      assert(convert(t2) === List(('a',List(0, 0)), ('b',List(0, 1)), ('d',List(1))))
+    }
+  }
+
+  test("decode and quick encode a longer text should be identity") {
+    new TestTrees {
+      val dab = List('d', 'a', 'b')
+      val bits: List[Bit] = quickEncode(t2)(dab)
+      println("bits:" + bits)
+      val chars: List[Char] = decode(t2, bits)
+      println("chars:" + chars)
       assert(chars === dab)
     }
   }

@@ -82,7 +82,10 @@ object Huffman {
   def timesAcc(chars: List[Char], list: List[(Char, Int)]): List[(Char, Int)] = {
     if (chars.isEmpty) list
     else if (chars.tail.isEmpty) timesAccAcc(chars.head, list)
-    else timesAccAcc(chars.head, list) ::: timesAcc(chars.tail, list)
+    else {
+      val listAugmentedForHead = timesAccAcc(chars.head, list)
+      timesAcc(chars.tail, listAugmentedForHead)
+    }
   }
 
   def timesAccAcc(char: Char, list: List[(Char, Int)]): List[(Char, Int)] = {
@@ -110,11 +113,11 @@ object Huffman {
 
   def makeOrderedLeafListAcc(freqs: List[(Char, Int)], list: List[Leaf]): List[Leaf] = {
     if (freqs.isEmpty) list
-    else if (freqs.tail.isEmpty) list.::(Leaf(freqs.head._1, freqs.head._2))
+    else if (freqs.tail.isEmpty) list :+ Leaf(freqs.head._1, freqs.head._2)
     else {
       val min: (Char, Int) = findMinFreqAcc((' ', Int.MaxValue), freqs)
       val newTail: List[(Char, Int)] = dropChar(min._1, freqs)
-      (list.::(Leaf(min._1, min._2))) ::: makeOrderedLeafList(newTail)
+      (list :+ Leaf(min._1, min._2)) ::: makeOrderedLeafList(newTail)
     }
   }
 
@@ -157,9 +160,9 @@ object Huffman {
   }
 
   def addInRightPlace(fork: Fork, alreadyChecked: List[CodeTree], leftToCheck: List[CodeTree]): List[CodeTree] = {
-    if (leftToCheck.isEmpty) alreadyChecked.::(fork)
-    else if (weight(fork) < weight(leftToCheck.head)) (alreadyChecked.::(fork)) ::: leftToCheck
-    else addInRightPlace(fork, alreadyChecked.::(leftToCheck.head), leftToCheck.tail)
+    if (leftToCheck.isEmpty) alreadyChecked :+ fork
+    else if (weight(fork) < weight(leftToCheck.head)) (alreadyChecked :+ fork) ::: leftToCheck
+    else addInRightPlace(fork, alreadyChecked :+ leftToCheck.head, leftToCheck.tail)
   }
 
   /**
@@ -312,7 +315,7 @@ object Huffman {
   def convertAcc(tree: CodeTree, bits: List[Bit]): CodeTable = {
     tree match {
       case Leaf(ch, _) => List((ch, bits))
-      case Fork(l, r, _, _) => mergeCodeTables(convertAcc(l, bits.::(0)), convertAcc(r, bits.::(1)))
+      case Fork(l, r, _, _) => mergeCodeTables(convertAcc(l, bits :+ 0), convertAcc(r, bits :+ 1))
     }
   }
 
